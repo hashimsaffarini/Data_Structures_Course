@@ -1,17 +1,15 @@
 package arraylist;
 
+import java.util.ArrayList;
+
 public class ArrayListMain {
 
 
     public static void main(String[] args) {
-        MyArrayList list = new MyArrayList(2);
-        list.add(10);
-        list.add(20);
-        list.add(30);
+        MyArrayList<Integer> a = new MyArrayList<>();
+        MyArrayList<Integer> b = new MyArrayList<>();
 
-        System.out.println(list);
-        System.out.println(list.set(2, -10));
-        System.out.println(list);
+        a.addAll(b);
     }
 
 }
