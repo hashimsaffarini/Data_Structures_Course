@@ -1,11 +1,11 @@
 package linkedlist;
 
-public class Node {
+public class Node <T>{
 
-    int val;
-    Node next;
+    T val;
+    Node<T> next;
 
-    Node(int val) {
+    Node(T val) {
         this.val = val;
     }
 
