@@ -1,9 +1,9 @@
 package linkedlist;
 
-public class MyLinkedList<T> {
+public class MyLinkedList {
 
 
-    Node<T> head, tail;
+    Node head, tail;
     private int size;
 
     MyLinkedList() {
@@ -11,14 +11,14 @@ public class MyLinkedList<T> {
         size = 0;
     }
 
-    void add(T... val) {
+    void add(int... val) {
         for (int i = 0; i < val.length; i++) {
             add(val[i]);
         }
     }
 
-    void add(T val) {
-        Node<T> newNode = new Node<>(val); //node
+    void add(int val) {
+        Node newNode = new Node(val); //node
         if (head == null) {
             head = newNode;
             tail = newNode;
@@ -29,8 +29,8 @@ public class MyLinkedList<T> {
         size++;
     }
 
-    void addFirst(T val) {
-        Node<T> newNode = new Node<>(val); //node
+    void addFirst(int val) {
+        Node newNode = new Node(val); //node
         newNode.next = head;
         head = newNode;
         if (size == 0) {
@@ -39,10 +39,10 @@ public class MyLinkedList<T> {
         size++;
     }
 
-    int indexOf(T val) {
-        Node<T> curr = head;
+    int indexOf(int val) {
+        Node curr = head;
         for (int i = 0; i < size; i++) {
-            if (curr.val.equals(val)) {
+            if (curr.val == (val)) {
                 return i;
             }
             curr = curr.next;
@@ -50,24 +50,24 @@ public class MyLinkedList<T> {
         return -1;
     }
 
-    boolean contains(T val) {
+    boolean contains(int val) {
 
-        for (Node<T> curr = head; curr != null; curr = curr.next) {
-            if (curr.val.equals(val)) {
+        for (Node curr = head; curr != null; curr = curr.next) {
+            if (curr.val == (val)) {
                 return true;
             }
         }
         return false;
     }
 
-    T getFirst() {
+    int getFirst() {
         if (head == null) {
             throw new NullPointerException();
         }
         return head.val;
     }
 
-    T getLast() {
+    int getLast() {
         if (tail == null) {
             throw new NullPointerException();
         }
@@ -78,11 +78,11 @@ public class MyLinkedList<T> {
         return size;
     }
 
-    T removeFirst() {
+    int removeFirst() {
         if (head == null) {
             throw new NullPointerException();
         }
-        T oldValue = head.val;
+        int oldValue = head.val;
         head = head.next;
         if (head == null) {
             tail = null;
@@ -91,19 +91,19 @@ public class MyLinkedList<T> {
         return oldValue;
     }
 
-    T get(int index) {
+    int get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
 
-        Node<T> temp = head;
+        Node temp = head;
         for (int i = 0; i < index; i++) {
             temp = temp.next;
         }
         return temp.val;
     }
 
-    void add(int index, T val) {
+    void add(int index, int val) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
@@ -112,8 +112,8 @@ public class MyLinkedList<T> {
         } else if (index == size) {
             add(val);
         } else {
-            Node<T> newNode = new Node<>(val);
-            Node<T> temp = head;
+            Node newNode = new Node(val);
+            Node temp = head;
             for (int i = 0; i < index - 1; i++) {
                 temp = temp.next;
             }
@@ -123,18 +123,18 @@ public class MyLinkedList<T> {
         }
     }
 
-    T remove(int index) {
+    int remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
         if (index == 0) {
             return removeFirst();
         } else {
-            Node<T> current = head;
+            Node current = head;
             for (int i = 0; i < index - 1; i++) {
                 current = current.next;
             }
-            T old = current.next.val;
+            int old = current.next.val;
             if (index == size - 1) {//last element
                 tail = current;
             }
@@ -148,7 +148,7 @@ public class MyLinkedList<T> {
     @Override
     public String toString() {
         String res = "";
-        Node<T> temp = head;
+        Node temp = head;
         while (temp != null) {
             res += temp.val + " ";
             temp = temp.next;
