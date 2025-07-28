@@ -80,12 +80,139 @@ public class LinkedListProblems {
         return prev;
     }
 
+    static Node reverseFromIndex(int index, Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node curr = head;
+        for (int i = 0; i < index - 1; i++) {
+            curr = curr.next;
+        }
+        curr.next = reverse(curr.next);
+        return head;
+    }
+
+    static Node insertNode(int val, Node head) {
+        Node cur = head;
+        Node nod = new Node(val);
+        if (head == null || head.val >= nod.val) {
+            nod.next = head;
+            head = nod;
+            return head;
+        }
+
+        while (cur.next != null) {
+            if (cur.next.val > nod.val) {
+                break;
+            }
+            cur = cur.next;
+        }
+        nod.next = cur.next;
+        cur.next = nod;
+        return head;
+    }
+
+    static Node removeDublicates(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node cur = head;
+
+        while (cur.next != null) {
+            if (cur.val == cur.next.val) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+        return head;
+    }
+
+    static Node[] alternatingSplit(Node head) {
+        if (head == null || head.next == null) {
+            return null;
+        }
+        Node c1 = head;
+        Node c2 = head.next;
+        Node h1 = head;
+        Node h2 = head.next;
+
+        while (c1.next != null && c2.next != null) {
+            c1.next = c1.next.next;
+            c1 = c1.next;
+            c2.next = c2.next.next;
+            c2 = c2.next;
+        }
+        if (c1 != null) {
+            c1.next = null;
+        }
+        if (c2 != null) {
+            c2.next = null;
+        }
+        return new Node[]{h1, h2};
+    }
+
+    static Node shuffleMerge(Node a, Node b) {
+        Node dummy = new Node(0);
+        Node tail = dummy;
+
+        while (true) {
+            if (a == null) {
+                tail.next = b;
+                break;
+            } else if (b == null) {
+                tail.next = a;
+                break;
+            } else {
+                tail.next = a;
+                tail = a;
+                a = a.next;
+
+                tail.next = b;
+                tail = b;
+                b = b.next;
+            }
+        }
+        return dummy.next;
+    }
+
+    static Node sortON(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node dummyZero = new Node(0);
+        Node curZero = dummyZero;
+        Node dummyOne = new Node(0);
+        Node curOne = dummyOne;
+        Node dummyTwo = new Node(0);
+        Node curTwo = dummyTwo;
+
+        Node cur = head;
+        while (cur != null) {
+            if (cur.val == 0) {
+                curZero.next = new Node(0);
+                curZero = curZero.next;
+            } else if (cur.val == 1) {
+                curOne.next = new Node(1);
+                curOne = curOne.next;
+            } else if (cur.val == 2) {
+                curTwo.next = new Node(2);
+                curTwo = curTwo.next;
+            }
+            cur = cur.next;
+        }
+
+        curZero.next = dummyOne.next;
+        curOne.next = dummyTwo.next;
+        return dummyZero.next;
+
+    }
 
     public static void main(String[] args) {
         MyLinkedList list = new MyLinkedList();
-        list.add(1, 2, 3, 4, 5);
+        list.add(1, 1, 1, 1, 2, 2, 3, 3, 3, 4);
         System.out.println(list);
-        list.head = reverse(list.head);
+        list.head = removeDublicates(list.head);
         System.out.println(list);
     }
 }

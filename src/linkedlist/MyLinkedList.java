@@ -17,6 +17,17 @@ public class MyLinkedList {
         }
     }
 
+//    void add(int... val) {
+//        Node dummy = new Node(0);
+//        Node cur = dummy;
+//        for (int i = 0; i < val.length; i++) {
+//            cur.next = new Node(val[i]);
+//            cur = cur.next;
+//        }
+//        head = dummy.next;
+//        tail = cur;
+//    }
+
     void add(int val) {
         Node newNode = new Node(val); //node
         if (head == null) {
