@@ -208,11 +208,112 @@ public class LinkedListProblems {
 
     }
 
+    static Node sortedMoerge(Node a, Node b) {
+        Node dummy = new Node(0);
+        Node tail = dummy;
+
+        while (a != null && b != null) {
+            if (a.val <= b.val) {
+                tail.next = a;
+                a = a.next;
+            } else {
+                tail.next = b;
+                b = b.next;
+            }
+            tail = tail.next;
+        }
+        return dummy.next;
+    }
+
+    static Node sortedIntersection(Node a, Node b) {
+        Node dummy = new Node(0);
+        Node current = dummy;
+
+        while (a != null && b != null) {
+            if (a.val == b.val) {
+                current.next = new Node(a.val);
+                current = current.next;
+                a = a.next;
+                b = b.next;
+            } else if (a.val < b.val) {
+                a = a.next;
+            } else {
+                b = b.next;
+            }
+        }
+        return dummy.next;
+
+    }
+
+    static Node kSortedMerge() {
+        MyLinkedList arr[] = new MyLinkedList[3];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = new MyLinkedList();
+        }
+        arr[0].add(10, 20, 30);
+        arr[1].add(1, 25, 35);
+        arr[2].add(0, 7, 27, 59);
+
+        Node result = arr[0].head;
+        for (int i = 1; i < arr.length; i++) {
+            result = sortedMoerge(result, arr[i].head);
+        }
+        return result;
+    }
+
+    static Node findKthNode(int k, Node head) {
+        Node fast = head, slow = head;
+        for (int i = 0; i < k; i++) {
+            if (fast == null) return null;
+            fast = fast.next;
+        }
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
+    static boolean isPalindrome(Node head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        Node firstHalf = middle(head);
+        Node secHalf = firstHalf.next;
+        firstHalf.next = null;
+        secHalf = reverse(secHalf);
+
+        while (secHalf != null) {
+            if (secHalf.val != head.val) {
+                return false;
+            }
+            secHalf = secHalf.next;
+            head = head.next;
+        }
+        return true;
+    }
+
+    static boolean isCycle(Node head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+        Node slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
-        MyLinkedList list = new MyLinkedList();
-        list.add(1, 1, 1, 1, 2, 2, 3, 3, 3, 4);
-        System.out.println(list);
-        list.head = removeDublicates(list.head);
-        System.out.println(list);
+        Node head = new Node(10);
+        head.next = new Node(20);
+        head.next.next = new Node(30);
+        head.next.next.next = head;
+
+        System.out.println(isCycle(head));
     }
 }
