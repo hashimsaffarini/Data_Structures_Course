@@ -308,12 +308,73 @@ public class LinkedListProblems {
         return false;
     }
 
-    public static void main(String[] args) {
-        Node head = new Node(10);
-        head.next = new Node(20);
-        head.next.next = new Node(30);
-        head.next.next.next = head;
+    static Node intersectionTwoLinkedList(Node a, Node b) {
+        Node x = a, y = b;
+        while (x != y) {
+            if (x == null) {
+                x = b;
+            } else {
+                x = x.next;
+            }
+            if (y == null) {
+                y = a;
+            } else {
+                y = y.next;
+            }
+        }
+        return x;
+    }
 
-        System.out.println(isCycle(head));
+    static Node get(Node head, int index) {
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    static int getSize(Node head) {
+        Node curr = head;
+        int c = 0;
+        while (curr != null) {
+            c++;
+            curr = curr.next;
+        }
+        return c;
+    }
+
+
+    static Node sortLinkedList(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        int i = 0, j = 0, size = getSize(head);
+        while (i != size) {
+            i++;
+            while (j != size - 1) {
+                Node a = get(head, j);
+                Node b = get(head, j + 1);
+                if (a.val > b.val) {
+                    int temp = a.val;
+                    a.val = b.val;
+                    b.val = temp;
+                }
+                j++;
+            }
+            j = 0;
+        }
+        return head;
+
+    }
+
+    public static void main(String[] args) {
+      MyLinkedList list = new MyLinkedList();
+      list.add(5);
+      list.add(1);
+      list.add(0);
+      list.add(10);
+      list.add(8);
+      list.head = sortLinkedList(list.head);
+        System.out.println(list);
     }
 }

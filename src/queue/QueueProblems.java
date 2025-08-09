@@ -84,6 +84,30 @@ public class QueueProblems {
         }
     }
 
+    static int minValueFrom90(int n) {
+        Queue<Integer> q = new LinkedList<>();
+        q.add(9);
+        while (true) {
+            int x = q.poll();
+            if (x % n == 0) {
+                return x;
+            }
+            q.add(x * 10);
+            q.add(x * 10 + 9);
+        }
+    }
+
+    static void binaryGenerator(int n) {
+        Queue<String> q = new LinkedList<>();
+        q.add("1");
+        for (int i = 0; i < n; i++) {
+            String val = q.poll();
+            System.out.print(val + " ");
+            q.add(val + "0");
+            q.add(val + "1");
+        }
+    }
+
 
     public static void main(String[] args) {
         Queue<Integer> q = new LinkedList<>();
@@ -96,8 +120,6 @@ public class QueueProblems {
         q.add(70);
         q.add(80);
 
-        System.out.println(q);
-        reverseFirstHalf(q);
-        System.out.println(q);
+        System.out.println(minValueFrom90(5));
     }
 }

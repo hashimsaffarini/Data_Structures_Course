@@ -87,6 +87,38 @@ public class StackProblems {
         return true;
     }
 
+    static void sortStack(Stack<Integer> s) {
+        Stack<Integer> t = new Stack<>();
+        while (!s.isEmpty()) {
+            int curr = s.pop();
+            while (!t.isEmpty() && t.peek() > curr) {
+                s.push(t.pop());
+            }
+            t.push(curr);
+        }
+
+        while (!t.isEmpty()) {
+            s.push(t.pop());
+        }
+    }
+
+    static boolean checkParentheses(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch == '(' || ch == '[' || ch == '{') {
+                stack.push(ch);
+            } else if (ch == ')' || ch == ']' || ch == '}') {
+                if (stack.isEmpty()) return false;
+                char last = stack.pop();
+                if (ch == ')' && last != '(' || ch == ']' && last != '[' || ch == '}' && last != '{') {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+
 
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
