@@ -1,5 +1,7 @@
 package set;
 
+import linkedlist.Node;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,8 +36,30 @@ public class SetProblems {
         return res;
     }
 
+    static Node removeDuplicates(Node head) {
+        // O(n)
+        if (head == null) {
+            return head;
+        }
+        HashSet<Integer> seen = new HashSet<>();
+        Node curr = head;
+        Node prev = null;
+
+        while (curr != null) {
+            if (seen.contains(curr.val)) {
+                // Skip
+                prev.next = curr.next;
+            } else {
+                seen.add(curr.val);
+                prev = curr;
+            }
+            curr = curr.next;
+        }
+        return head;
+    }
+
     public static void main(String[] args) {
-        int arr[] = {1,2,1,3,2,5};
+        int arr[] = {1, 2, 1, 3, 2, 5};
         System.out.println(Arrays.toString(singleNumber(arr)));
     }
 }
