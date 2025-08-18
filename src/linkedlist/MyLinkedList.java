@@ -3,10 +3,11 @@ package linkedlist;
 public class MyLinkedList {
 
 
-    Node head, tail;
+    public Node head;
+    Node tail;
     private int size;
 
-    MyLinkedList() {
+    public MyLinkedList() {
         head = tail = null;
         size = 0;
     }
@@ -28,7 +29,7 @@ public class MyLinkedList {
 //        tail = cur;
 //    }
 
-    void add(int val) {
+    public void add(int val) {
         Node newNode = new Node(val); //node
         if (head == null) {
             head = newNode;
