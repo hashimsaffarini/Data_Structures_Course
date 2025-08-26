@@ -1,6 +1,9 @@
 package tree;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class BST {
 
@@ -140,9 +143,83 @@ public class BST {
         }
         return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
     }
-//    List<List<Integer>> levelOrder(Node root) {
-//
-//    }
+
+    List<List<Integer>> levelOrder(Node root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                Node curr = q.poll();
+                list.add(curr.val);
+                if (curr.left != null) {
+                    q.add(curr.left);
+                }
+                if (curr.right != null) {
+                    q.add(curr.right);
+                }
+            }
+            res.add(list);
+        }
+        return res;
+    }
+
+    Node lowestCommonAncestor(Node root, Node a, Node b) {
+        if (root.val > a.val && b.val < root.val) {
+            return lowestCommonAncestor(root.left, a, b);
+        } else if (root.val < a.val && b.val > root.val) {
+            return lowestCommonAncestor(root.right, a, b);
+        }
+        return root;
+    }
+
+    boolean isFull(Node root) {
+        if (root == null) return true;
+        if (isLeaf(root)) return true;
+        if (root.left != null && root.right != null) {
+            return isFull(root.left) && isFull(root.right);
+        }
+        return false; //one child
+    }
+
+    boolean isComplete(Node root, int index, int count) {
+        if (root == null) return true;
+        if (index >= count) return false;
+        return isComplete(root.left, 2 * index + 1, count) && isComplete(root.right, 2 * index + 2, count);
+    }
+
+    boolean isComplete() {
+        return isComplete(root, 0, count());
+    }
+
+    boolean isPerfect(Node root , int depth , int level){
+        if(root == null) return true;
+        if(isLeaf(root)){
+            return depth == level;
+        }
+        if(root.left == null || root.right == null){
+            return false;
+        }
+        return isPerfect(root.left , depth , level+1) && isPerfect(root.right, depth , level+1);
+
+    }
+
+    boolean isPerfect(){
+        return isPerfect(root, depth(root) , 1);
+    }
+
+    int depth(Node root){
+        int c = 0;
+        for( Node curr = root ; curr!=null ; curr = curr.left){
+            c++;
+        }
+        return c;
+    }
 
     @Override
     public String toString() {
