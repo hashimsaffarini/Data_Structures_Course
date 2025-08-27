@@ -63,7 +63,7 @@ public class BST {
     int countLeaf(Node root) {
         if (root == null) return 0;
         else if (isLeaf(root)) {
-            return 1 + countLeaf(root.left) + countLeaf(root.right);
+            return 1;
         }
         return countLeaf(root.left) + countLeaf(root.right);
     }
@@ -219,6 +219,21 @@ public class BST {
             c++;
         }
         return c;
+    }
+
+    static List<Integer> rightView (Node root){
+        List<Integer> res = new ArrayList<>();
+        rightViewHelper(root, 0, res);
+        return res;
+    }
+
+    static void rightViewHelper(Node root , int level, List<Integer> res){
+        if(root == null) return;
+        if(level == res.size()){
+            res.add(root.val);
+        }
+        rightViewHelper(root.right, level+1 , res);
+        rightViewHelper(root.left, level+1 , res);
     }
 
     @Override
